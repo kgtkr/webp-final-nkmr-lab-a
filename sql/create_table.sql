@@ -9,7 +9,7 @@ CREATE INDEX idx_users_created_at ON users (created_at);
 CREATE TABLE tags (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  image_sha256 TEXT,
+  image_filename TEXT,
   created_at TIMESTAMPTZ NOT NULL,
   user_id TEXT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
@@ -32,7 +32,7 @@ CREATE INDEX idx_tag_incompatible_ralations_tag_id2 ON tag_incompatible_ralation
 CREATE TABLE clohtes (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  image_sha256 TEXT,
+  image_filename TEXT,
   created_at TIMESTAMPTZ NOT NULL,
   user_id TEXT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
