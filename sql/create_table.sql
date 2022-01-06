@@ -1,7 +1,7 @@
 CREATE TABLE users (
   id TEXT NOT NULL PRIMARY KEY,
   hashed_password TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_users_created_at ON users (created_at);
@@ -10,9 +10,9 @@ CREATE TABLE tags (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   image_filename TEXT,
-  created_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   user_id TEXT NOT NULL,
-  deleted_at TIMESTAMPTZ,
+  deleted_at TIMESTAMPTZ DEFAULT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -35,9 +35,9 @@ CREATE TABLE clohtes (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   image_filename TEXT,
-  created_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   user_id TEXT NOT NULL,
-  deleted_at TIMESTAMPTZ,
+  deleted_at TIMESTAMPTZ DEFAULT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
@@ -57,7 +57,7 @@ CREATE INDEX idx_clothes_tags_clothes_id ON clothes_tags (clothes_id);
 
 CREATE TABLE laundries (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  created_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   user_id TEXT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
