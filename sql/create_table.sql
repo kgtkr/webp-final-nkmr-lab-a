@@ -12,10 +12,12 @@ CREATE TABLE tags (
   image_filename TEXT,
   created_at TIMESTAMPTZ NOT NULL,
   user_id TEXT NOT NULL,
+  deleted_at TIMESTAMPTZ,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE INDEX idx_tags_created_at ON tags (created_at);
+CREATE INDEX idx_tags_deleted_at ON tags (deleted_at);
 
 CREATE TABLE tag_incompatible_ralations (
   tag_id1 INTEGER NOT NULL,
@@ -35,10 +37,12 @@ CREATE TABLE clohtes (
   image_filename TEXT,
   created_at TIMESTAMPTZ NOT NULL,
   user_id TEXT NOT NULL,
+  deleted_at TIMESTAMPTZ,
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE INDEX idx_clohtes_created_at ON clohtes (created_at);
+CREATE INDEX idx_clohtes_deleted_at ON clohtes (deleted_at);
 
 CREATE TABLE clothes_tags (
   tag_id INTEGER NOT NULL,
