@@ -63,6 +63,7 @@ CREATE INDEX idx_laundries_created_at ON laundries (created_at);
 CREATE TABLE laundry_clothes (
   laundry_id INTEGER NOT NULL,
   clothes_id INTEGER NOT NULL,
+  group INTEGER NOT NULL,
   FOREIGN KEY (laundry_id) REFERENCES laundries (id),
   FOREIGN KEY (clothes_id) REFERENCES clothes (id),
   PRIMARY KEY (laundry_id, clothes_id)
@@ -70,3 +71,4 @@ CREATE TABLE laundry_clothes (
 
 CREATE INDEX idx_laundry_clothes_laundry_id ON laundry_clothes (laundry_id);
 CREATE INDEX idx_laundry_clothes_clothes_id ON laundry_clothes (clothes_id);
+CREATE INDEX idx_laundry_clothes_group ON laundry_clothes (group);
