@@ -27,5 +27,6 @@ foreach($results as $detail){
     }
 }
 ?>
+<a href="clothes.php">戻る</a>
 </body>
 </html>
