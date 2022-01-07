@@ -9,7 +9,8 @@
 function h($str) { return htmlspecialchars($str, ENT_QUOTES, "UTF-8"); }
 require_once("lib/db.php");
 $db = connectDB();
-$result=$db->query("select name,image_sha256,created_at from clothes");//+where user_id=
+//$db=PDO("sqlite:db/db.sqlite");
+$results=$db->query("select name,image_sha256,created_at from clothes");//+where user_id=
 foreach($result as $clothes){
     print h($clothes["name"]);
     print h($clothes["image_sha256"]);//画像表示に変えたい
