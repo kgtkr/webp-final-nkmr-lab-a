@@ -1,4 +1,5 @@
 function previewFile(file) {
+    //
     // プレビュー画像を追加する要素
     var preview = document.getElementsByClassName('preview');
   

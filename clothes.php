@@ -44,6 +44,7 @@ if(isset($_GET["name"])&&isset($_GET["image"])&&isset($_GET["tag"])&&is_array($_
 <?php //} else { ?>
 <a href="register_clothes.php">新規登録</a><br>
 <?php
+//
 $results=$db->query("select id,name,image_filename,created_at from clohtes;");//+where user_id=
 foreach($results as $clothes){
     print h($clothes["name"])."<br>";

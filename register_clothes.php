@@ -24,6 +24,7 @@ $tags=$db->query("select id,image_filename from tags");
 <input type="file" name="image"><br>
 タグ<br>
 <?php
+//
 foreach($tags as $tag){
     if($tag['image_filename']!==null){
         print "<img src='images/".h($tag["image_filename"]).">";
