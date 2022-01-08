@@ -22,6 +22,7 @@ $results->execute();
 $results2=$db->prepare("select tag_id from clothes_tags where clothes_id=:clothes_id");//一回clothes_tagsテーブルを挟むでいいのかな
 $results2->bindValue(":clothes_id",$clothes_id,PDO::PARAM_INT);
 $results2->execute();
+//
 foreach($results as $detail){
     print h($detail["name"])."<br>";
     if($detail['image_filename']!==null){

@@ -4,7 +4,7 @@ require_once('./lib/image.php');
 
 $login_user_id = $_SESSION['user_id'] ?? null;
 $db = connectDB();
-$tags=$db->query("select name,image_filename from tags");
+$tags=$db->query("select id,image_filename from tags");
 ?>
 <!DOCTYPE html>
 <head>
@@ -28,7 +28,7 @@ foreach($tags as $tag){
     if($tag['image_filename']!==null){
         print "<img src='images/".h($tag["image_filename"]).">";
     }
-    print "<input type='checkbox' name='tag' value=".$tag["name"]."><br>";
+    print "<input type='checkbox' name='tag[]' value=".$tag["id"]."><br>";
 }
 ?>
 <input type="submit" name="submit" value="登録">
