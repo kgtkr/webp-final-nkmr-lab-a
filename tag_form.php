@@ -4,7 +4,7 @@
 
     $login_user_id = login_user_id();
     $db = connectDB();
-    $id = intval($_GET['id']) ?? null;
+    $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
     $action = $_POST['action'] ?? null;
 
