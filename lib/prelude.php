@@ -1,5 +1,7 @@
 <?php
 include_once(dirname(__FILE__) .  "/db.php");
+ini_set('display_errors', "On");
+ini_set('error_reporting', E_ALL);
 session_start();
 
 function h($s) {
