@@ -1,1 +1,3 @@
-top page
+<?php
+header('Location: clothes.php');
+?>

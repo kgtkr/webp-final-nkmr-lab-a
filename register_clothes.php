@@ -9,13 +9,16 @@ $db = connectDB();
 <head>
 <meta charset="utf-8">
 <title>服-登録</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>新規登録</h1>
 <?php if($login_user_id === null) { ?>
     <p>ログインしてください</p>
 <?php } else { ?>
 <form action="clothes.php" method="post" enctype="multipart/form-data">
+<?php echo_csrf_token(); ?>
 名称<br>
 <input type="text" name="name"><br>
 画像<br>

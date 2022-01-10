@@ -5,7 +5,7 @@ require_once('./lib/image.php');
 $login_user_id=login_user_id();
 $db = connectDB();
 
-if(isset($_POST["name"])){
+if(isset($_POST["name"]) && verify_csrf_token()){
     $name=$_POST["name"];
     $image = $_FILES['image'] ?? null;
     $tags=$_POST["tags"] ?? [];
@@ -42,29 +42,50 @@ if(isset($_POST["name"])){
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-<title>服-一覧</title>
+<title>服一覧</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
-<h1>アイテム一覧</h1>
+<?php echo_header(); ?>
+<h1>服一覧</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
 <?php } else { ?>
 <a href="register_clothes.php">新規登録</a><br>
+<form action="laundry.php" method="post">
+<table border="1">
+<tr>
+<th>洗濯</th>
+<th>アイコン</th>
+<th>名前</th>
+<th>編集</th>
+</tr>
 <?php
 $results=$db->prepare("select id,name,image_filename,created_at,deleted_at from clohtes where user_id=:login_user_id and deleted_at is null;");
-$results->bindValue(":login_user_id",$login_user_id,PDO::PARAM_STR);///PARAM_INTに変える！！！！！
+$results->bindValue(":login_user_id",$login_user_id,PDO::PARAM_STR);
 $results->execute();
 foreach($results as $clothes){
-    print h($clothes["name"])."<br>";
-    if($clothes['image_filename']!==null){
-        print "<img src='images/".h($clothes["image_filename"])."'><br>";
-    }
-    print h($clothes["created_at"])."<br>";
-?>
-    <a href="edit_clothes.php?clothes_id=<?php print h($clothes["id"]) ?>">編集</a><br>
-<?php
-}
-?>
+    ?>
+    <tr>
+    <td>
+        <input type="checkbox" name="clothes[]" value="<?php echo h($clothes['id']); ?>">
+    </td>
+    <td><?php
+        if($clothes['image_filename']!==null){
+            print "<img src='images/".h($clothes["image_filename"])."'>";
+        }
+        ?>
+    </td>
+    <td><?php echo h($clothes["name"]); ?></td>
+    <td>
+    <a href="edit_clothes.php?clothes_id=<?php print h($clothes["id"]) ?>">編集</a>
+    </td>
+    </tr>
+    <?php } ?>
+</table>
+<input type="submit" value="洗濯">
+<?php echo_csrf_token(); ?>
+</form>
 <?php } ?>
 </body>
 </html>

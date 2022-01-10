@@ -8,14 +8,16 @@ $db = connectDB();
 <head>
 <meta charset="utf-8">
 <title>服-変更完了</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>変更完了しました</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-if(isset($_POST["clothes_id"])&&isset($_POST["name"])){
+if(isset($_POST["clothes_id"])&&isset($_POST["name"]) && verify_csrf_token()){
     $clothes_id=$_POST["clothes_id"];
     if(isset($_FILES["image"])){
         $image=$_FILES['image'] ?? null;

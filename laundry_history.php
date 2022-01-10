@@ -7,16 +7,17 @@ $db = connectDB();
 <head>
 <meta charset="utf-8">
 <title></title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>洗濯履歴</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-$user_id = 'user';
 $user_laundries_db=$db->prepare("SELECT * FROM laundries WHERE user_id=:user_id");
-$user_laundries_db->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+$user_laundries_db->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
 $user_laundries_db->execute();
 $user_laundries_history=$user_laundries_db->fetchAll();
 $user_laundries_history_days=array_unique(array_column($user_laundries_history, 'created_at'));
@@ -48,15 +49,11 @@ $laundry_id_to_laundry_day = [];
 foreach($user_laundries_history as $user_laundry_day){
     $laundry_id_to_laundry_day[$user_laundry_day['id']]=$user_laundry_day;
 }
+echo '<ul>';
 foreach($histories as $laundry_id=>$group){
-    echo '<h4><a href="./laundry.php?laundry_id='. $laundry_id .'">'.h($laundry_id_to_laundry_day[$laundry_id]['created_at']).'</a></h4>';
-    foreach($group as $group_id=>$clothe_ids){
-        echo $group_id."<br>";
-        foreach($clothe_ids as $clothe_id){
-            echo h($clothes_id_to_clothes[$clothe_id]['name'])."<br>";
-        }
-    }
+    echo '<li><a href="./laundry.php?laundry_id='. $laundry_id .'">'.h(app_dateformat($laundry_id_to_laundry_day[$laundry_id]['created_at'])).'</a></li>';
 }
+echo '</ul>';
 
 ?>
 <?php } ?>
