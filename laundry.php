@@ -1,7 +1,33 @@
 <?php
 require_once("./lib/prelude.php");
+require_once("./lib/clothes_group.php");
 $login_user_id=login_user_id();
 $db = connectDB();
+
+if (verify_csrf_token()) {
+    $clothes_ids = array_map('intval',  $_POST['clothes'] ?? []);
+    $stat = $db->prepare('SELECT * FROM clohtes WHERE user_id = :user_id AND deleted_at IS NULL AND id IN '. array_prepare_query('id', count($clothes_ids)));
+    array_prepare_bind($stat, 'id', $clothes_ids, PDO::PARAM_INT);
+    $stat->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
+    $stat->execute();
+    $clothes = $stat->fetchAll();
+    $clothes_group = clothes_group\group($db, $clothes);
+
+    $stat = $db->prepare('INSERT INTO laundries (user_id) VALUES (:user_id)');
+    $stat->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
+    $stat->execute();
+    $laundry_id = $db->lastInsertId();
+    foreach ($clothes_group as $clothes_id=>$group_id) {
+        $stat = $db->prepare('INSERT INTO laundry_clothes (laundry_id, clothes_id, group_id) VALUES (:laundry_id, :clothes_id, :group_id)');
+        $stat->bindValue(':laundry_id', $laundry_id, PDO::PARAM_INT);
+        $stat->bindValue(':clothes_id', $clothes_id, PDO::PARAM_INT);
+        $stat->bindValue(':group_id', $group_id, PDO::PARAM_INT);
+        $stat->execute();
+    }
+    header('Location: laundry.php?laundry_id=' . $laundry_id);
+
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <head>

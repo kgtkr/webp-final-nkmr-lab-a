@@ -52,6 +52,7 @@ if(isset($_POST["name"]) && verify_csrf_token()){
     <p>ログインしてください</p>
 <?php } else { ?>
 <a href="register_clothes.php">新規登録</a><br>
+<form action="laundry.php" method="post">
 <table border="1">
 <tr>
 <th>洗濯</th>
@@ -82,6 +83,9 @@ foreach($results as $clothes){
     </tr>
     <?php } ?>
 </table>
+<input type="submit" value="洗濯">
+<?php echo_csrf_token(); ?>
+</form>
 <?php } ?>
 </body>
 </html>
