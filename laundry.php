@@ -40,10 +40,11 @@ foreach($clothes as $clothe){
     $clothes_id_to_clothes[$clothe['id']] = $clothe;
 }
 foreach($groups as $group_id=>$clothe_ids){
-    echo $group_id . "<br>";
+    echo '<ul class="group">';
     foreach($clothe_ids as $clothe_id){
-        echo h($clothes_id_to_clothes[$clothe_id]['name']) . "<br>";
+        echo '<li>' . h($clothes_id_to_clothes[$clothe_id]['name']) . "</li>";
     }
+    echo '</ul>';
 }
 
 ?>

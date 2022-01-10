@@ -21,6 +21,11 @@ img {
 
 a {
     text-decoration: none;
+    color: #eef;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .concept {
@@ -133,3 +138,8 @@ ul .img_list li .img_box{
     right: 12px;
 }
 /* ここまでform用 */
+
+.group {
+    margin-bottom: 20px;
+    border: #eef solid 1px;
+}

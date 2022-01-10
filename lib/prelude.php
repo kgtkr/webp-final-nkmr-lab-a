@@ -48,4 +48,8 @@ function echo_header() {
         <?php
     }
 }
+
+function app_dateformat($date) {
+    return date_create($date)->setTimeZone(new DateTimeZone('Asia/Tokyo'))->format('Y/m/d H:i');
+}
 ?>

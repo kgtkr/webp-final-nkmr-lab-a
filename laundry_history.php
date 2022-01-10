@@ -49,15 +49,11 @@ $laundry_id_to_laundry_day = [];
 foreach($user_laundries_history as $user_laundry_day){
     $laundry_id_to_laundry_day[$user_laundry_day['id']]=$user_laundry_day;
 }
+echo '<ul>';
 foreach($histories as $laundry_id=>$group){
-    echo '<h4><a href="./laundry.php?laundry_id='. $laundry_id .'">'.h($laundry_id_to_laundry_day[$laundry_id]['created_at']).'</a></h4>';
-    foreach($group as $group_id=>$clothe_ids){
-        echo $group_id."<br>";
-        foreach($clothe_ids as $clothe_id){
-            echo h($clothes_id_to_clothes[$clothe_id]['name'])."<br>";
-        }
-    }
+    echo '<li><a href="./laundry.php?laundry_id='. $laundry_id .'">'.h(app_dateformat($laundry_id_to_laundry_day[$laundry_id]['created_at'])).'</a></li>';
 }
+echo '</ul>';
 
 ?>
 <?php } ?>

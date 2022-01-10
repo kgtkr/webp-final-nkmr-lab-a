@@ -11,6 +11,7 @@ $db = connectDB();
 <link rel="stylesheet" href="./layout.css">
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>アイテム編集</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>

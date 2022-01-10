@@ -54,17 +54,21 @@ if(isset($_POST["name"]) && verify_csrf_token()){
 <a href="register_clothes.php">新規登録</a><br>
 <table border="1">
 <tr>
+<th>洗濯</th>
 <th>アイコン</th>
 <th>名前</th>
 <th>編集</th>
 </tr>
 <?php
 $results=$db->prepare("select id,name,image_filename,created_at,deleted_at from clohtes where user_id=:login_user_id and deleted_at is null;");
-$results->bindValue(":login_user_id",$login_user_id,PDO::PARAM_STR);///PARAM_INTに変える！！！！！
+$results->bindValue(":login_user_id",$login_user_id,PDO::PARAM_STR);
 $results->execute();
 foreach($results as $clothes){
     ?>
     <tr>
+    <td>
+        <input type="checkbox" name="clothes[]" value="<?php echo h($clothes['id']); ?>">
+    </td>
     <td><?php
         if($clothes['image_filename']!==null){
             print "<img src='images/".h($clothes["image_filename"])."'>";
