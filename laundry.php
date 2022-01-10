@@ -15,8 +15,9 @@ $db = connectDB();
 <?php } else{ ?>
 <?php
 $laundry_id=$_GET['laundry_id'];
-$laundries_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id=:laundry_id");
+$laundries_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id=:laundry_id AND user_id=:user_id");
 $laundries_db->bindValue(':laundry_id', $laundry_id, PDO::PARAM_INT);
+$laundries_db->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
 $laundries_db->execute();
 $laundries=$laundries_db->fetchAll();
 $clothes_ids=array_unique(array_column($laundries, 'clothes_id'));
