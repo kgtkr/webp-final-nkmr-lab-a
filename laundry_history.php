@@ -14,9 +14,8 @@ $db = connectDB();
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-$user_id = 'user';
 $user_laundries_db=$db->prepare("SELECT * FROM laundries WHERE user_id=:user_id");
-$user_laundries_db->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+$user_laundries_db->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
 $user_laundries_db->execute();
 $user_laundries_history=$user_laundries_db->fetchAll();
 $user_laundries_history_days=array_unique(array_column($user_laundries_history, 'created_at'));

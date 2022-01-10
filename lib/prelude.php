@@ -25,11 +25,27 @@ function echo_header() {
     if ($login_user_id === null) {
         echo '<a href="login.php">ログイン</a>';
     } else {
-        echo '<a href=".">トップページ</a>';
-        echo '<form action="logout.php" method="post">';
-        echo_csrf_token();
-        echo '<input type="submit" value="ログアウト">';
-        echo '</form>';
+        ?>
+        <table>
+        <tr>
+        <td>
+            <a href="clothes.php">服一覧</a>
+        </td>
+        <td>
+            <a href="tags.php">タグ一覧</a>
+        </td>
+        <td>
+            <a href="laundry_history.php">洗濯履歴</a>
+        </td>
+        <td>
+            <form action="logout.php" method="post">
+            <?php echo_csrf_token(); ?>
+            <input type="submit" value="ログアウト">
+            </form>
+        </td>
+        </tr>
+        </table>
+        <?php
     }
 }
 ?>

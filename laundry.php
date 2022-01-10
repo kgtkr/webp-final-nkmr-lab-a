@@ -14,10 +14,15 @@ $db = connectDB();
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-$laundry_id=$_GET['laundry_id'];
-$laundries_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id=:laundry_id AND user_id=:user_id");
-$laundries_db->bindValue(':laundry_id', $laundry_id, PDO::PARAM_INT);
-$laundries_db->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
+$laundry_id=intval($_GET['laundry_id']);
+$stat = $db->prepare("SELECT * FROM laundries WHERE id=:laundry_id AND user_id=:user_id");
+$stat->bindValue(':laundry_id', $laundry_id, PDO::PARAM_INT);
+$stat->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
+$stat->execute();
+$laundry = $stat->fetch();
+
+$laundries_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id=:laundry_id");
+$laundries_db->bindValue(':laundry_id', $laundry['id'], PDO::PARAM_INT);
 $laundries_db->execute();
 $laundries=$laundries_db->fetchAll();
 $clothes_ids=array_unique(array_column($laundries, 'clothes_id'));

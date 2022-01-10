@@ -42,11 +42,11 @@ if(isset($_POST["name"]) && verify_csrf_token()){
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-<title>服-一覧</title>
+<title>服一覧</title>
 </head>
 <body>
 <?php echo_header(); ?>
-<h1>アイテム一覧</h1>
+<h1>服一覧</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
 <?php } else { ?>
