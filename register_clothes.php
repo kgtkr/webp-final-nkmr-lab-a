@@ -1,9 +1,8 @@
 <?php
-function h($str) { return htmlspecialchars($str, ENT_QUOTES, "UTF-8"); }
-require_once('./lib/db.php');
+require_once('./lib/prelude.php');
 require_once('./lib/image.php');
 
-$login_user_id = $_SESSION['user_id'] ?? null;
+$login_user_id = login_user_id();
 $db = connectDB();
 ?>
 <!DOCTYPE html>
@@ -13,7 +12,6 @@ $db = connectDB();
 </head>
 <body>
 <h1>新規登録</h1>
-<?php $login_user_id=user;//消す！！！！！ ?>
 <?php if($login_user_id === null) { ?>
     <p>ログインしてください</p>
 <?php } else { ?>
@@ -24,7 +22,10 @@ $db = connectDB();
 <input type="file" name="image" accept="image/*"><br>
 タグ<br>
 <?php
-$tags=$db->query("select id,name,image_filename from tags");
+$stat=$db->prepare("select id,name,image_filename from tags WHERE user_id=:user_id AND deleted_at IS NULL");
+$stat->bindValue(":user_id",$login_user_id,PDO::PARAM_STR);
+$stat->execute();
+$tags = $stat->fetchAll(PDO::FETCH_ASSOC);
 foreach($tags as $tag){
     if($tag['image_filename']!==null){
         print "<img src='images/".h($tag["image_filename"]).">";

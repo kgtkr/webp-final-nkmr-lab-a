@@ -1,8 +1,7 @@
 <?php
-function h($str) { return htmlspecialchars($str, ENT_QUOTES, "UTF-8"); }
-require_once("lib/db.php");
+require_once("./lib/prelude.php");
 require_once('./lib/image.php');
-$login_user_id=$_SESSION["user_id"]??null;
+$login_user_id=login_user_id();
 $db = connectDB();
 ?>
 <!DOCTYPE html>
@@ -12,15 +11,15 @@ $db = connectDB();
 </head>
 <body>
 <h1>削除されました</h1>
-<?php $login_user_id=user;//消す！！！！！ ?>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
 if(isset($_POST["clothes_id"])){
     $clothes_id=$_POST["clothes_id"];
-    $delete_clothes=$db->prepare("update clohtes set deleted_at=CURRENT_TIMESTAMP where id=:clothes_id");
+    $delete_clothes=$db->prepare("update clohtes set deleted_at=CURRENT_TIMESTAMP where id=:clothes_id AND user_id=:user_id");
     $delete_clothes->bindValue(":clothes_id",$clothes_id,PDO::PARAM_INT);
+    $delete_clothes->bindValue(":user_id",$login_user_id,PDO::PARAM_STR);
     $delete_clothes->execute();
 }
 ?>
