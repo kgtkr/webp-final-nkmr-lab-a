@@ -52,21 +52,32 @@ if(isset($_POST["name"]) && verify_csrf_token()){
     <p>ログインしてください</p>
 <?php } else { ?>
 <a href="register_clothes.php">新規登録</a><br>
+<table border="1">
+<tr>
+<th>アイコン</th>
+<th>名前</th>
+<th>編集</th>
+</tr>
 <?php
 $results=$db->prepare("select id,name,image_filename,created_at,deleted_at from clohtes where user_id=:login_user_id and deleted_at is null;");
 $results->bindValue(":login_user_id",$login_user_id,PDO::PARAM_STR);///PARAM_INTに変える！！！！！
 $results->execute();
 foreach($results as $clothes){
-    print h($clothes["name"])."<br>";
-    if($clothes['image_filename']!==null){
-        print "<img src='images/".h($clothes["image_filename"])."'><br>";
-    }
-    print h($clothes["created_at"])."<br>";
-?>
-    <a href="edit_clothes.php?clothes_id=<?php print h($clothes["id"]) ?>">編集</a><br>
-<?php
-}
-?>
+    ?>
+    <tr>
+    <td><?php
+        if($clothes['image_filename']!==null){
+            print "<img src='images/".h($clothes["image_filename"])."'>";
+        }
+        ?>
+    </td>
+    <td><?php echo h($clothes["name"]); ?></td>
+    <td>
+    <a href="edit_clothes.php?clothes_id=<?php print h($clothes["id"]) ?>">編集</a>
+    </td>
+    </tr>
+    <?php } ?>
+</table>
 <?php } ?>
 </body>
 </html>
