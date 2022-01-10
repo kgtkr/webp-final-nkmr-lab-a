@@ -108,8 +108,9 @@
             $tagHash[$tag['id']] = $tag;
         }
 
-        $stmt = $db->prepare('SELECT * FROM tag_incompatible_ralations WHERE tag_id1 IN ' . array_prepare_query('tag_id', count($tags)));
-        array_prepare_bind($stmt, 'tag_id', array_column($tags, 'id'), PDO::PARAM_INT);
+        $stmt = $db->prepare('SELECT * FROM tag_incompatible_ralations WHERE tag_id1 IN ' . array_prepare_query('tag_id1', count($tags)) . 'AND tag_id2 IN ' . array_prepare_query('tag_id2', count($tags)));
+        array_prepare_bind($stmt, 'tag_id1', array_column($tags, 'id'), PDO::PARAM_INT);
+        array_prepare_bind($stmt, 'tag_id2', array_column($tags, 'id'), PDO::PARAM_INT);
         $stmt->execute();
         $relations = $stmt->fetchAll();
     ?>
@@ -122,10 +123,6 @@
                 <th>削除</th>
             </tr>
             <?php
-                $stmt = $db->prepare('SELECT * FROM tags WHERE user_id = :user_id AND deleted_at IS NULL ORDER BY id');
-                $stmt->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
-                $stmt->execute();
-                $tags = $stmt->fetchAll();
                 foreach ($tags as $tag) {
             ?>
                 <tr>
