@@ -93,6 +93,7 @@
     <title>タグ一覧</title>
 </head>
 <body>
+<?php echo_header(); ?>
     <h1>タグ一覧</h1>
     <?php if ($login_user_id === null) { ?>
         <div>ログインしてください</div>

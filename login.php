@@ -30,6 +30,7 @@ $login_user_id=login_user_id();
 <title>ログイン</title>
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>ログイン</h1>
 <?php
 if ($msg !== null) {

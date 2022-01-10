@@ -10,6 +10,7 @@ $db = connectDB();
 <title></title>
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>削除されました</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>

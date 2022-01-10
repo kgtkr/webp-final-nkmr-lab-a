@@ -10,6 +10,7 @@ $db = connectDB();
 <title>服-変更完了</title>
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>変更完了しました</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>

@@ -16,6 +16,7 @@ if ($login_user_id !== null && verify_csrf_token()) {
 <title>ログアウト</title>
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>ログアウト</h1>
 <?php
 if ($msg !== null) {

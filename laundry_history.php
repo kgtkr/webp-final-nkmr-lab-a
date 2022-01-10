@@ -9,6 +9,7 @@ $db = connectDB();
 <title></title>
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>洗濯履歴</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>

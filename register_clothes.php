@@ -11,6 +11,7 @@ $db = connectDB();
 <title>服-登録</title>
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>新規登録</h1>
 <?php if($login_user_id === null) { ?>
     <p>ログインしてください</p>
