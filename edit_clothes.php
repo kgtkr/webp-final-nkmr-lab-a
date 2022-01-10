@@ -30,6 +30,7 @@ $results3->bindValue(":user_id",$login_user_id,PDO::PARAM_STR);
 $results3->execute();
 ?>
 <form action="complete_edit_clothes.php" method="post" enctype="multipart/form-data">
+<?php echo_csrf_token(); ?>
 <input type="hidden" name="clothes_id" value="<?php print h($clothes_id) ?>">
 <?php
 foreach($results as $detail){

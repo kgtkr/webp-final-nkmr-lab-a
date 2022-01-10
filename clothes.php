@@ -5,7 +5,7 @@ require_once('./lib/image.php');
 $login_user_id=login_user_id();
 $db = connectDB();
 
-if(isset($_POST["name"])){
+if(isset($_POST["name"]) && verify_csrf_token()){
     $name=$_POST["name"];
     $image = $_FILES['image'] ?? null;
     $tags=$_POST["tags"] ?? [];

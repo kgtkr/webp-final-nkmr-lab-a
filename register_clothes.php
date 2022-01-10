@@ -16,6 +16,7 @@ $db = connectDB();
     <p>ログインしてください</p>
 <?php } else { ?>
 <form action="clothes.php" method="post" enctype="multipart/form-data">
+<?php echo_csrf_token(); ?>
 名称<br>
 <input type="text" name="name"><br>
 画像<br>
