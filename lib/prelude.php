@@ -25,6 +25,7 @@ function echo_header() {
     if ($login_user_id === null) {
         echo '<a href="login.php">ログイン</a>';
     } else {
+        echo '<a href=".">トップページ</a>';
         echo '<form action="logout.php" method="post">';
         echo_csrf_token();
         echo '<input type="submit" value="ログアウト">';

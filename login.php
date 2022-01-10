@@ -48,6 +48,7 @@ if ($msg !== null) {
         <input type="submit" value="ログイン">
     </div>
 </form>
+<a href="signup.php">新規登録</a>
 <?php } else if ($msg === null) { ?>
 <div>「<?php echo h($login_user_id); ?>」でログインしています</div>
 <a href=".">トップページ</a>
