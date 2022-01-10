@@ -22,7 +22,8 @@ $results=$db->prepare("select name,image_filename from clohtes where id=:id AND 
 $results->bindValue(":id",$clothes_id,PDO::PARAM_INT);
 $results->bindValue(":user_id",$login_user_id,PDO::PARAM_STR);
 $results->execute();
-$results2=$db->prepare("select tag_id from clothes_tags where clothes_id=:clothes_id");
+$results2=$db->prepare("select tag_id from clothes_tags join tags on clothes_tags.tag_id=tags.id
+ where clothes_id=:clothes_id and tags.deleted_at IS NULL");
 $results2->bindValue(":clothes_id",$clothes_id,PDO::PARAM_INT);
 $results2->execute();
 

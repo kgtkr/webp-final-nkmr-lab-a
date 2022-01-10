@@ -10,6 +10,7 @@ $db = connectDB();
 <link rel="stylesheet" href="./layout.css">
 </head>
 <body>
+<?php echo_header(); ?>
 <h1>洗濯グループ分け</h1>
 <?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
@@ -77,7 +78,12 @@ foreach($groups as $group_id=>$clothe_ids){
     echo '<h2>服</h2>';
     echo '<ul>';
     foreach($clothe_ids as $clothe_id){
-        echo '<li>' . h($clothes_id_to_clothes[$clothe_id]['name']) . "</li>";
+        echo '<li>';
+        if ($clothes_id_to_clothes[$clothe_id]['image_filename']) {
+            echo '<img src="images/'.$clothes_id_to_clothes[$clothe_id]['image_filename'].'">';
+        }
+        echo h($clothes_id_to_clothes[$clothe_id]['name']);
+        echo '</li>';
     }
     echo '</ul>';
     echo '</div>';
