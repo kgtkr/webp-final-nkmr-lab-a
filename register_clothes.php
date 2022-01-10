@@ -27,11 +27,8 @@ $stat->bindValue(":user_id",$login_user_id,PDO::PARAM_STR);
 $stat->execute();
 $tags = $stat->fetchAll(PDO::FETCH_ASSOC);
 foreach($tags as $tag){
-    if($tag['image_filename']!==null){
-        print "<img src='images/".h($tag["image_filename"]).">";
-    }
+    ?> <input type='checkbox' name='tags[]' value=<?php print h($tag["id"]) ?>> <?php
 ?>
-    <input type='checkbox' name='tags[]' value=<?php print h($tag["id"]) ?>>
 <?php
 print $tag["name"]."<br>";
 }

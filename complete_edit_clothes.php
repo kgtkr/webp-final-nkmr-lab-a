@@ -15,7 +15,7 @@ $db = connectDB();
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-if(isset($_POST["clothes_id"])&&isset($_POST["image_ori"])&&isset($_POST["name"])&&isset($_POST["tags"])&&is_array($_POST["tags"])){
+if(isset($_POST["clothes_id"])&&isset($_POST["name"])){
     $clothes_id=$_POST["clothes_id"];
     if(isset($_POST["image"])){
         $image=$_FILES['image'] ?? null;
@@ -32,7 +32,7 @@ if(isset($_POST["clothes_id"])&&isset($_POST["image_ori"])&&isset($_POST["name"]
         }
     }
     $name=$_POST["name"];
-    $tags=$_POST["tags"];
+    $tags=$_POST["tags"] ?? [];
 
     $change_clothes=$db->prepare("update clohtes set name=:name,image_filename=:image_filename where id=:clothes_id AND user_id=:user_id");
     $change_clothes->bindValue(":name",$name,PDO::PARAM_STR);//PARAM_INT…int型データ、PARAM_STR…string型データ
@@ -48,7 +48,7 @@ if(isset($_POST["clothes_id"])&&isset($_POST["image_ori"])&&isset($_POST["name"]
         $delete_clothes_tags->execute();
 
         $stmt = $db->prepare('SELECT * FROM tags WHERE user_id=:user_id AND deleted_at IS NULL AND id IN ' . array_prepare_query('id', count($tags)));
-        array_prepare_bind($stmt, 'id', array_column($tags, 'id'), PDO::PARAM_INT);
+        array_prepare_bind($stmt, 'id', $tags, PDO::PARAM_INT);
         $stmt->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
         $stmt->execute();
         $verifyTags = $stmt->fetchAll();

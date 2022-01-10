@@ -5,12 +5,12 @@ require_once('./lib/image.php');
 $login_user_id=login_user_id();
 $db = connectDB();
 
-if(isset($_POST["name"])&&isset($_POST["image"])&&isset($_POST["tags"])&&is_array($_POST["tags"])){
+if(isset($_POST["name"])){
     $name=$_POST["name"];
     $image = $_FILES['image'] ?? null;
     $tags=$_POST["tags"] ?? [];
     if ($image !== null) {
-        $image_filename = save($image);
+        $image_filename = image\save($image);
     } else {
         $image_filename = null;
     }
@@ -24,7 +24,7 @@ if(isset($_POST["name"])&&isset($_POST["image"])&&isset($_POST["tags"])&&is_arra
     $clothes_id_new=intval($db->lastInsertId());
 
     $stmt = $db->prepare('SELECT * FROM tags WHERE user_id=:user_id AND deleted_at IS NULL AND id IN ' . array_prepare_query('id', count($tags)));
-    array_prepare_bind($stmt, 'id', array_column($tags, 'id'), PDO::PARAM_INT);
+    array_prepare_bind($stmt, 'id', $tags, PDO::PARAM_INT);
     $stmt->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
     $stmt->execute();
     $verifyTags = $stmt->fetchAll();
@@ -61,10 +61,7 @@ foreach($results as $clothes){
     }
     print h($clothes["created_at"])."<br>";
 ?>
-    <form action='edit_clothes.php' method='post'>
-    <input type='hidden' name='clothes_id' value=<?php print h($clothes['id']) ?>>
-    <input type='submit' value='編集'>
-    </form>
+    <a href="edit_clothes.php?clothes_id=<?php print h($clothes["id"]) ?>">編集</a><br>
 <?php
 }
 ?>

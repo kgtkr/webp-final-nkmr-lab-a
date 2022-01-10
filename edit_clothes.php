@@ -15,12 +15,12 @@ $db = connectDB();
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-$clothes_id=$_POST["clothes_id"];
+$clothes_id=intval($_GET["clothes_id"]);
 $results=$db->prepare("select name,image_filename from clohtes where id=:id AND user_id=:user_id AND deleted_at IS NULL");
 $results->bindValue(":id",$clothes_id,PDO::PARAM_INT);
 $results->bindValue(":user_id",$login_user_id,PDO::PARAM_STR);
 $results->execute();
-$results2=$db->prepare("select tag_id from clothes_tags where clothes_id=:clothes_id AND deleted_at IS NULL");
+$results2=$db->prepare("select tag_id from clothes_tags where clothes_id=:clothes_id");
 $results2->bindValue(":clothes_id",$clothes_id,PDO::PARAM_INT);
 $results2->execute();
 
@@ -57,9 +57,6 @@ foreach($results as $detail){
 ?>
         <input type="checkbox" name="tags[]" value="<?php print h($tag_checked[0]['id']) ?>" checked><?php print h($tag_checked[0]['name']); ?>
 <?php
-        if($tags['image_filename']!==null){
-                print "<img src='images/".h($tag_checked[0]['image_filename']).">";
-        }
     }
     foreach ($results3 as $tags_id_2){
         $results5=$db->prepare("select id,name,image_filename from tags where id=:tag_id");
@@ -69,9 +66,6 @@ foreach($results as $detail){
 ?> 
         <input type="checkbox" name="tags[]" value="<?php print h($tag_unchecked[0]['id']) ?>"><?php print h($tag_unchecked[0]['name']); ?>
 <?php
-        if($not_tags['image_filename']!==null){
-            print "<img src='images/".h($tag_unchecked[0]['image_filename']).">";
-        }
     }
 }
 ?>
