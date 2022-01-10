@@ -34,7 +34,7 @@ $results3->execute();
 <?php
 foreach($results as $detail){
     if($detail['image_filename']!==null){
-        print "<img src='images/".h($detail["image_filename"]).">";
+        print "<img src='images/".h($detail["image_filename"])."'>";
     }
 ?>
 <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />

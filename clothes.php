@@ -57,7 +57,7 @@ $results->execute();
 foreach($results as $clothes){
     print h($clothes["name"])."<br>";
     if($clothes['image_filename']!==null){
-        print "<img src='images/".h($clothes["image_filename"])."><br>";
+        print "<img src='images/".h($clothes["image_filename"])."'><br>";
     }
     print h($clothes["created_at"])."<br>";
 ?>

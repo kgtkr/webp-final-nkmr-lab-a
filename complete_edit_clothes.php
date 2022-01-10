@@ -17,10 +17,10 @@ $db = connectDB();
 <?php
 if(isset($_POST["clothes_id"])&&isset($_POST["name"])){
     $clothes_id=$_POST["clothes_id"];
-    if(isset($_POST["image"])){
+    if(isset($_FILES["image"])){
         $image=$_FILES['image'] ?? null;
         if($image !==null){
-            $image_filename=image/save($image);
+            $image_filename=image\save($image);
         } else {
             $image_filename=null;
         }
