@@ -1,7 +1,6 @@
 <?php
-function h($str) { return htmlspecialchars($str, ENT_QUOTES, "UTF-8"); }
-require_once("lib/db.php");
-$login_user_id=$_SESSION["user_id"]??null;
+require_once("./lib/prelude.php");
+$login_user_id=login_user_id();
 $db = connectDB();
 ?>
 <!DOCTYPE html>
@@ -11,9 +10,9 @@ $db = connectDB();
 </head>
 <body>
 <h1>洗濯履歴</h1>
-<?php //if($login_user_id===null){ ?>
+<?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
-<?php //} else{ ?>
+<?php } else{ ?>
 <?php
 $user_id = 'user';
 $user_laundries_db=$db->prepare("SELECT * FROM laundries WHERE user_id=:user_id");
@@ -50,16 +49,16 @@ foreach($user_laundries_history as $user_laundry_day){
     $laundry_id_to_laundry_day[$user_laundry_day['id']]=$user_laundry_day;
 }
 foreach($histories as $laundry_id=>$group){
-    echo "<h4>".$laundry_id_to_laundry_day[$laundry_id]['created_at']."</h4><br>";
+    echo '<h4><a href="./laundry.php?laundry_id='. $laundry_id .'">'.h($laundry_id_to_laundry_day[$laundry_id]['created_at']).'</a></h4>';
     foreach($group as $group_id=>$clothe_ids){
         echo $group_id."<br>";
         foreach($clothe_ids as $clothe_id){
-            echo $clothes_id_to_clothes[$clothe_id]['name']."<br>";
+            echo h($clothes_id_to_clothes[$clothe_id]['name'])."<br>";
         }
     }
 }
 
 ?>
-<?php //} ?>
+<?php } ?>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <?php
-function h($str) { return htmlspecialchars($str, ENT_QUOTES, "UTF-8"); }
-require_once("lib/db.php");
-$login_user_id=$_SESSION["user_id"]??null;
+require_once("./lib/prelude.php");
+$login_user_id=login_user_id();
 $db = connectDB();
 ?>
 <!DOCTYPE html>
@@ -11,12 +10,11 @@ $db = connectDB();
 </head>
 <body>
 <h1>洗濯グループ分け</h1>
-<?php //if($login_user_id===null){ ?>
+<?php if($login_user_id===null){ ?>
     <p>ログインしてください</p>
-<?php //} else{ ?>
+<?php } else{ ?>
 <?php
-//$laundry_id=$_GET['laundry_id'];
-$laundry_id=1;
+$laundry_id=$_GET['laundry_id'];
 $laundries_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id=:laundry_id");
 $laundries_db->bindValue(':laundry_id', $laundry_id, PDO::PARAM_INT);
 $laundries_db->execute();
@@ -35,13 +33,13 @@ foreach($clothes as $clothe){
     $clothes_id_to_clothes[$clothe['id']] = $clothe;
 }
 foreach($groups as $group_id=>$clothe_ids){
-    echo $group_id."<br>";
+    echo $group_id . "<br>";
     foreach($clothe_ids as $clothe_id){
-        echo $clothes_id_to_clothes[$clothe_id]['name']."<br>";
+        echo h($clothes_id_to_clothes[$clothe_id]['name']) . "<br>";
     }
 }
 
 ?>
-<?php //} ?>
+<?php } ?>
 </body>
 </html>
