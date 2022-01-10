@@ -15,7 +15,7 @@ $db = connectDB();
     <p>ログインしてください</p>
 <?php } else{ ?>
 <?php
-if(isset($_POST["clothes_id"])){
+if(isset($_POST["clothes_id"]) && verify_csrf_token()){
     $clothes_id=$_POST["clothes_id"];
     $delete_clothes=$db->prepare("update clohtes set deleted_at=CURRENT_TIMESTAMP where id=:clothes_id AND user_id=:user_id");
     $delete_clothes->bindValue(":clothes_id",$clothes_id,PDO::PARAM_INT);

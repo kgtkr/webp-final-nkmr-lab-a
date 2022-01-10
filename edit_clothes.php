@@ -75,6 +75,7 @@ foreach($results as $detail){
 <input type="submit" name="submit" value="変更">
 </form>
 <form action="clothes_deleted.php" method="post">
+<?php echo_csrf_token(); ?>
 <input type="hidden" name="clothes_id" value="<?php print h($clothes_id) ?>">
 <input type="submit" name="submit" value="削除">
 </form>
