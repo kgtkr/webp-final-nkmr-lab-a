@@ -43,6 +43,7 @@ if(isset($_POST["name"]) && verify_csrf_token()){
 <head>
 <meta charset="utf-8">
 <title>服一覧</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <?php echo_header(); ?>

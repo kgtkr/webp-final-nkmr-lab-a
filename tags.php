@@ -91,6 +91,7 @@
 <head>
     <meta charset="UTF-8">
     <title>タグ一覧</title>
+    <link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <?php echo_header(); ?>

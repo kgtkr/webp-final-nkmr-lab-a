@@ -7,6 +7,7 @@ $db = connectDB();
 <head>
 <meta charset="utf-8">
 <title></title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <?php echo_header(); ?>

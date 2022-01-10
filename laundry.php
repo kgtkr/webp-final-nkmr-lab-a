@@ -7,6 +7,7 @@ $db = connectDB();
 <head>
 <meta charset="utf-8">
 <title>洗濯グループ分け</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <h1>洗濯グループ分け</h1>

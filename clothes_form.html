@@ -1,50 +1,48 @@
-<html lang = "ja">
-    <html>
-        <meta charset = "utf-8">
-        <title>washelp-nakamura_A</title>
-        <link rel="stylesheet" href="../CSS/layout.css">
-    </html>
+<html lang="ja">
+<html>
+<meta charset="utf-8">
+<title>washelp-nakamura_A</title>
+<link rel="stylesheet" href="./layout.css">
 
-    <body>
-        <form id="add">
-            <div class="form">
-              <div class="head">
-                <h2>服登録ページ</h2>
+</html>
+
+<body>
+  <form id="add">
+    <div class="form">
+      <div class="head">
+        <h2>服登録ページ</h2>
+      </div>
+      <div>
+        <input type="text" name="name" placeholder="Name"><br><br>
+
+        <input type="file" name="clothes" placeholder="Clothes"><br><br>
+
+        <div class="checkBox">
+          <ul class="img_list">
+            <li>
+              <div class="img_box">
+                <img class="A" src="//placehold.it/90x90">
+                <input class="disabled_checkbox" type="checkbox" checked>
               </div>
-              <div>
-              <input type="text" name="name" placeholder="Name"><br><br>
-              
-              <input  type="file" name="clothes" placeholder="Clothes"><br><br>
-              
-              <div class = "checkBox">
-                  <ul class = "img_list">
-                      <li>
-                          <div class = "img_box">
-                            <img class = "A" src="//placehold.it/90x90">
-                            <input class = "disabled_checkbox" type = "checkbox" checked>
-                          </div>
 
-                          <div class = "img_box">
-                            <img class = "B" src="//placehold.it/90x90">
-                            <input class = "disabled_checkbox" type = "checkbox" checked>
-                          </div>
-
-                          <div class = "img_box">
-                            <img class = "C" src="//placehold.it/90x90">
-                            <input class = "disabled_checkbox" type = "checkbox" checked>
-                          </div>
-                      </li>
-                  </ul>
+              <div class="img_box">
+                <img class="B" src="//placehold.it/90x90">
+                <input class="disabled_checkbox" type="checkbox" checked>
               </div>
-            
-              <br/>
-              <button id="submit" type="submit">
-                Send
-              </button>
-            </div>
-          </form>
 
-        <script 
-            src="https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js">
-        </script>
-    </body>
+              <div class="img_box">
+                <img class="C" src="//placehold.it/90x90">
+                <input class="disabled_checkbox" type="checkbox" checked>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <br />
+        <button id="submit" type="submit">
+          Send
+        </button>
+      </div>
+  </form>
+  </script>
+</body>

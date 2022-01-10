@@ -52,6 +52,7 @@
 <head>
     <meta charset="UTF-8">
     <title>タグ<?php if ($id !== null) { echo '編集'; } else { echo '追加'; }?></title>
+    <link rel="stylesheet" href="./layout.css">
 </head>
     <?php echo_header(); ?>
     <h1>タグ<?php if ($id !== null) { echo '編集'; } else { echo '追加'; }?></h1>

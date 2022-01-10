@@ -33,6 +33,7 @@ $login_user_id=login_user_id();
 <head>
 <meta charset="utf-8">
 <title>ユーザー登録</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <? echo_header(); ?>

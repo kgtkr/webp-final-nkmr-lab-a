@@ -14,6 +14,7 @@ if ($login_user_id !== null && verify_csrf_token()) {
 <head>
 <meta charset="utf-8">
 <title>ログアウト</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <?php echo_header(); ?>

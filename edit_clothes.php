@@ -8,6 +8,7 @@ $db = connectDB();
 <head>
 <meta charset="utf-8">
 <title>服-編集</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <h1>アイテム編集</h1>

@@ -28,6 +28,7 @@ $login_user_id=login_user_id();
 <head>
 <meta charset="utf-8">
 <title>ログイン</title>
+<link rel="stylesheet" href="./layout.css">
 </head>
 <body>
 <?php echo_header(); ?>
