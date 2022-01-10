@@ -1,6 +1,5 @@
 <?php
 require_once("./lib/prelude.php");
-$login_user_id=login_user_id();
 $db = connectDB();
 $msg = null;
 
@@ -23,6 +22,7 @@ if (isset($_POST["user_id"]) && isset($_POST["password"])) {
         $msg = "ユーザーIDまたはパスワードが間違っています";
     }
 }
+$login_user_id=login_user_id();
 ?>
 <!DOCTYPE html>
 <head>
@@ -48,7 +48,7 @@ if ($msg !== null) {
         <input type="submit" value="ログイン">
     </div>
 </form>
-<?php } else { ?>
+<?php } else if ($msg === null) { ?>
 <div>「<?php echo h($login_user_id); ?>」でログインしています</div>
 <a href=".">トップページ</a>
 <?php } ?>

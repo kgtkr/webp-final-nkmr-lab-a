@@ -19,4 +19,16 @@ function verify_csrf_token() {
 function echo_csrf_token() {
     echo '<input type="hidden" name="csrf_token" value="' . h($_SESSION['csrf_token']) . '">';
 }
+
+function echo_header() {
+    $login_user_id = login_user_id();
+    if ($login_user_id === null) {
+        echo '<a href="login.php">ログイン</a>';
+    } else {
+        echo '<form action="logout.php" method="post">';
+        echo_csrf_token();
+        echo '<input type="submit" value="ログアウト">';
+        echo '</form>';
+    }
+}
 ?>
