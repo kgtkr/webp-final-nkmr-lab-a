@@ -43,6 +43,9 @@ function echo_header() {
             <input type="submit" value="ログアウト">
             </form>
         </td>
+        <td>
+            <a href="change_password.php">パスワード変更</a>
+        </td>
         </tr>
         </table>
         <?php
