@@ -38,13 +38,13 @@ function echo_header() {
             <a href="laundry_history.php">洗濯履歴</a>
         </td>
         <td>
+            <a href="change_password.php">パスワード変更</a>
+        </td>
+        <td>
             <form action="logout.php" method="post">
             <?php echo_csrf_token(); ?>
             <input type="submit" value="ログアウト">
             </form>
-        </td>
-        <td>
-            <a href="change_password.php">パスワード変更</a>
         </td>
         </tr>
         </table>
