@@ -8,6 +8,7 @@ if ($login_user_id !== null && verify_csrf_token()) {
 } else {
     $msg = "ログアウトできませんでした";
 }
+$login_user_id = login_user_id();
 ?>
 
 <!DOCTYPE html>
