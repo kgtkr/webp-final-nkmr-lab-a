@@ -21,6 +21,67 @@ if (isset($_POST["user_id"]) && isset($_POST["password"])) {
 
             $_SESSION["user_id"] = $user_id;
             $_SESSION["csrf_token"] = bin2hex(random_bytes(64));
+
+            // 初期データ登録
+            $stat = $db->prepare("INSERT INTO tags (name, image_filename, user_id) VALUES (:name, :image_filename, :user_id)");
+            $stat->bindValue(":name", "手洗い", PDO::PARAM_STR);
+            $stat->bindValue(":image_filename", "tag1.gif", PDO::PARAM_STR);
+            $stat->bindValue(":user_id", $user_id, PDO::PARAM_STR);
+            $stat->execute();
+            $tag1_id = $db->lastInsertId();
+
+            $stat = $db->prepare("INSERT INTO tags (name, image_filename, user_id) VALUES (:name, :image_filename, :user_id)");
+            $stat->bindValue(":name", "洗濯機可", PDO::PARAM_STR);
+            $stat->bindValue(":image_filename", "tag2.gif", PDO::PARAM_STR);
+            $stat->bindValue(":user_id", $user_id, PDO::PARAM_STR);
+            $stat->execute();
+            $tag2_id = $db->lastInsertId();
+
+            $stat = $db->prepare("INSERT INTO tags (name, image_filename, user_id) VALUES (:name, NULL, :user_id)");
+            $stat->bindValue(":name", "色落ちしやすい", PDO::PARAM_STR);
+            $stat->bindValue(":user_id", $user_id, PDO::PARAM_STR);
+            $stat->execute();
+            $tag3_id = $db->lastInsertId();
+
+            $stat = $db->prepare("INSERT INTO tags (name, image_filename, user_id) VALUES (:name, NULL, :user_id)");
+            $stat->bindValue(":name", "色が薄い", PDO::PARAM_STR);
+            $stat->bindValue(":user_id", $user_id, PDO::PARAM_STR);
+            $stat->execute();
+            $tag4_id = $db->lastInsertId();
+
+            $stat = $db->prepare("INSERT INTO tag_incompatible_ralations (tag_id1, tag_id2) VALUES (:tag_id1, :tag_id2)");
+            $stat->bindValue(":tag_id1", $tag1_id, PDO::PARAM_INT);
+            $stat->bindValue(":tag_id2", $tag2_id, PDO::PARAM_INT);
+            $stat->execute();
+
+            $stat = $db->prepare("INSERT INTO tag_incompatible_ralations (tag_id1, tag_id2) VALUES (:tag_id1, :tag_id2)");
+            $stat->bindValue(":tag_id1", $tag3_id, PDO::PARAM_INT);
+            $stat->bindValue(":tag_id2", $tag4_id, PDO::PARAM_INT);
+            $stat->execute();
+
+            $stat = $db->prepare("INSERT INTO clohtes (name, image_filename, user_id) VALUES (:name, :image_filename, :user_id)");
+            $stat->bindValue(":name", "青い服", PDO::PARAM_STR);
+            $stat->bindValue(":image_filename", "clohtes1.png", PDO::PARAM_STR);
+            $stat->bindValue(":user_id", $user_id, PDO::PARAM_STR);
+            $stat->execute();
+            $clohte1_id = $db->lastInsertId();
+
+            $stat = $db->prepare("INSERT INTO clohtes (name, image_filename, user_id) VALUES (:name, :image_filename, :user_id)");
+            $stat->bindValue(":name", "白い服", PDO::PARAM_STR);
+            $stat->bindValue(":image_filename", "clohtes2.png", PDO::PARAM_STR);
+            $stat->bindValue(":user_id", $user_id, PDO::PARAM_STR);
+            $stat->execute();
+            $clohte2_id = $db->lastInsertId();
+
+            $stat = $db->prepare("INSERT INTO clothes_tags (tag_id, clothes_id) VALUES (:tag_id, :clothes_id)");
+            $stat->bindValue(":tag_id", $tag3_id, PDO::PARAM_INT);
+            $stat->bindValue(":clothes_id", $clohte1_id, PDO::PARAM_INT);
+            $stat->execute();
+
+            $stat = $db->prepare("INSERT INTO clothes_tags (tag_id, clothes_id) VALUES (:tag_id, :clothes_id)");
+            $stat->bindValue(":tag_id", $tag4_id, PDO::PARAM_INT);
+            $stat->bindValue(":clothes_id", $clohte2_id, PDO::PARAM_INT);
+            $stat->execute();
         } catch (PDOException $e) {
             $msg = "ユーザーIDが既に使用されています";
         }
