@@ -22,13 +22,13 @@ $user_laundries_db->execute();
 $user_laundries_history=$user_laundries_db->fetchAll();
 
 $user_laundry_ids=array_unique(array_column($user_laundries_history, 'id'));
-$user_laundry_ids_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id IN" . array_prepare_query('laundry_id', count($user_laundry_ids)));
+$user_laundry_ids_db=$db->prepare("SELECT * FROM laundry_clothes WHERE laundry_id IN" . array_prepare_query('laundry_id', $user_laundry_ids));
 array_prepare_bind($user_laundry_ids_db, 'laundry_id', $user_laundry_ids, PDO::PARAM_INT);
 $user_laundry_ids_db->execute();
 $user_laundry_groups=$user_laundry_ids_db->fetchAll();
 
 $clothes_ids=array_unique(array_column($user_laundry_groups, 'clothes_id'));
-$clothes_db=$db->prepare("SELECT * FROM clohtes WHERE id IN ".array_prepare_query('clothes_id', count($clothes_ids)));
+$clothes_db=$db->prepare("SELECT * FROM clohtes WHERE id IN ".array_prepare_query('clothes_id', $clothes_ids));
 array_prepare_bind($clothes_db, 'clothes_id', $clothes_ids, PDO::PARAM_INT);
 $clothes_db->execute();
 $clothes=$clothes_db->fetchAll();
@@ -44,7 +44,7 @@ foreach($clothes as $clothe){
 }
 
 $clothes_ids=array_unique(array_column($user_laundry_groups, 'clothes_id'));
-$clothes_db=$db->prepare("SELECT * FROM clohtes WHERE id IN ".array_prepare_query('clothes_id', count($clothes_ids)));
+$clothes_db=$db->prepare("SELECT * FROM clohtes WHERE id IN ".array_prepare_query('clothes_id', $clothes_ids));
 array_prepare_bind($clothes_db, 'clothes_id', $clothes_ids, PDO::PARAM_INT);
 $clothes_db->execute();
 $clothes=$clothes_db->fetchAll();

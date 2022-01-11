@@ -6,7 +6,7 @@ $db = connectDB();
 
 if (verify_csrf_token()) {
     $clothes_ids = array_map('intval',  $_POST['clothes'] ?? []);
-    $stat = $db->prepare('SELECT * FROM clohtes WHERE user_id = :user_id AND deleted_at IS NULL AND id IN '. array_prepare_query('id', count($clothes_ids)));
+    $stat = $db->prepare('SELECT * FROM clohtes WHERE user_id = :user_id AND deleted_at IS NULL AND id IN '. array_prepare_query('id', $clothes_ids));
     array_prepare_bind($stat, 'id', $clothes_ids, PDO::PARAM_INT);
     $stat->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
     $stat->execute();
@@ -54,7 +54,7 @@ $laundries_db->bindValue(':laundry_id', $laundry['id'], PDO::PARAM_INT);
 $laundries_db->execute();
 $laundries=$laundries_db->fetchAll();
 $clothes_ids=array_unique(array_column($laundries, 'clothes_id'));
-$clothes_db=$db->prepare("SELECT * FROM clohtes WHERE id IN ".array_prepare_query('clothes_id', count($clothes_ids)));
+$clothes_db=$db->prepare("SELECT * FROM clohtes WHERE id IN ".array_prepare_query('clothes_id', $clothes_ids));
 array_prepare_bind($clothes_db, 'clothes_id', $clothes_ids, PDO::PARAM_INT);
 $clothes_db->execute();
 $clothes=$clothes_db->fetchAll();
@@ -67,7 +67,7 @@ $stat=$db->prepare("
     FROM
         clothes_tags JOIN tags ON clothes_tags.tag_id=tags.id
     WHERE
-        tags.user_id=:user_id AND tags.deleted_at IS NULL AND clothes_tags.clothes_id IN ".array_prepare_query('clothes_id', count($clothes_ids))."");
+        tags.user_id=:user_id AND tags.deleted_at IS NULL AND clothes_tags.clothes_id IN ".array_prepare_query('clothes_id', $clothes_ids));
 array_prepare_bind($stat, 'clothes_id', $clothes_ids, PDO::PARAM_INT);
 $stat->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
 $stat->execute();

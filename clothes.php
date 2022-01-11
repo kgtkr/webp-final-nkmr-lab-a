@@ -23,7 +23,7 @@ if(isset($_POST["name"]) && verify_csrf_token()){
 
     $clothes_id_new=intval($db->lastInsertId());
 
-    $stmt = $db->prepare('SELECT * FROM tags WHERE user_id=:user_id AND deleted_at IS NULL AND id IN ' . array_prepare_query('id', count($tags)));
+    $stmt = $db->prepare('SELECT * FROM tags WHERE user_id=:user_id AND deleted_at IS NULL AND id IN ' . array_prepare_query('id', $tags));
     array_prepare_bind($stmt, 'id', $tags, PDO::PARAM_INT);
     $stmt->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
     $stmt->execute();

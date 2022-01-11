@@ -5,7 +5,7 @@ include_once(dirname(__FILE__) .  "/prelude.php");
 include_once(dirname(__FILE__) .  "/graph.php");
 
 function group($db, $clothes) {
-    $stat = $db->prepare('SELECT * FROM clothes_tags WHERE EXISTS (SELECT * FROM tags WHERE tags.id = clothes_tags.tag_id AND deleted_at IS NULL) AND clothes_id IN ' . array_prepare_query('clothes_id', count($clothes)));
+    $stat = $db->prepare('SELECT * FROM clothes_tags WHERE EXISTS (SELECT * FROM tags WHERE tags.id = clothes_tags.tag_id AND deleted_at IS NULL) AND clothes_id IN ' . array_prepare_query('clothes_id', $clothes));
     array_prepare_bind($stat, 'clothes_id', array_column($clothes, 'id'), \PDO::PARAM_INT);
     $stat->execute();
     $clothes_tags = $stat->fetchAll();
@@ -27,7 +27,7 @@ function group($db, $clothes) {
         $tag_to_clothes[$ct['tag_id']][] = $ct['clothes_id'];
     }
 
-    $stat = $db->prepare('SELECT * FROM tag_incompatible_ralations WHERE tag_id1 IN ' . array_prepare_query('tag_id1', count($tagIds)) . ' OR tag_id2 IN ' . array_prepare_query('tag_id2', count($tagIds)));
+    $stat = $db->prepare('SELECT * FROM tag_incompatible_ralations WHERE tag_id1 IN ' . array_prepare_query('tag_id1', $tagIds) . ' OR tag_id2 IN ' . array_prepare_query('tag_id2', $tagIds));
     array_prepare_bind($stat, 'tag_id1', $tagIds, \PDO::PARAM_INT);
     array_prepare_bind($stat, 'tag_id2', $tagIds, \PDO::PARAM_INT);
     $stat->execute();

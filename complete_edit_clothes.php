@@ -49,7 +49,7 @@ if(isset($_POST["clothes_id"])&&isset($_POST["name"]) && verify_csrf_token()){
         $delete_clothes_tags->bindValue(":clothes_id",$clothes_id,PDO::PARAM_STR);
         $delete_clothes_tags->execute();
 
-        $stmt = $db->prepare('SELECT * FROM tags WHERE user_id=:user_id AND deleted_at IS NULL AND id IN ' . array_prepare_query('id', count($tags)));
+        $stmt = $db->prepare('SELECT * FROM tags WHERE user_id=:user_id AND deleted_at IS NULL AND id IN ' . array_prepare_query('id', $tags));
         array_prepare_bind($stmt, 'id', $tags, PDO::PARAM_INT);
         $stmt->bindValue(':user_id', $login_user_id, PDO::PARAM_STR);
         $stmt->execute();

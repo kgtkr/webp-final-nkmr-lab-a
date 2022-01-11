@@ -110,7 +110,7 @@
             $tagHash[$tag['id']] = $tag;
         }
 
-        $stmt = $db->prepare('SELECT * FROM tag_incompatible_ralations WHERE tag_id1 IN ' . array_prepare_query('tag_id1', count($tags)) . 'AND tag_id2 IN ' . array_prepare_query('tag_id2', count($tags)));
+        $stmt = $db->prepare('SELECT * FROM tag_incompatible_ralations WHERE tag_id1 IN ' . array_prepare_query('tag_id1', $tags) . 'AND tag_id2 IN ' . array_prepare_query('tag_id2', $tags));
         array_prepare_bind($stmt, 'tag_id1', array_column($tags, 'id'), PDO::PARAM_INT);
         array_prepare_bind($stmt, 'tag_id2', array_column($tags, 'id'), PDO::PARAM_INT);
         $stmt->execute();

@@ -5,13 +5,14 @@ function connectDB() {
     return $db;
 }
 
-function array_prepare_query($key, $n) {
+function array_prepare_query($key, $array) {
     $query = "(";
-    for ($i = 0; $i < $n; $i++) {
-        $query .= ":$key$i";
-        if ($i < $n - 1) {
-            $query .= ",";
-        }
+    foreach ($array as $i => $value) {
+        $query .= ":${key}__${i}";
+        $query .= ",";
+    }
+    if (count($array) > 0) {
+        $query = substr($query, 0, -1);
     }
     $query .= ")";
     return $query;
@@ -19,7 +20,7 @@ function array_prepare_query($key, $n) {
 
 function array_prepare_bind($stat, $key, $array, $type) {
     foreach ($array as $i => $value) {
-        $stat->bindValue(":$key$i", $value, $type);
+        $stat->bindValue(":${key}__${i}", $value, $type);
     }
 }
 ?>
