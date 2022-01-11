@@ -74,17 +74,16 @@ if (isset($_POST["user_id"]) && isset($_POST["password"])) {
             $clohte2_id = $db->lastInsertId();
 
             $stat = $db->prepare("INSERT INTO clothes_tags (tag_id, clothes_id) VALUES (:tag_id, :clothes_id)");
-            $stat->bindValue(":tag_id", $tag1_id, PDO::PARAM_INT);
+            $stat->bindValue(":tag_id", $tag3_id, PDO::PARAM_INT);
             $stat->bindValue(":clothes_id", $clohte1_id, PDO::PARAM_INT);
             $stat->execute();
 
             $stat = $db->prepare("INSERT INTO clothes_tags (tag_id, clothes_id) VALUES (:tag_id, :clothes_id)");
-            $stat->bindValue(":tag_id", $tag2_id, PDO::PARAM_INT);
-            $stat->bindValue(":clothes_id", $clohte1_id, PDO::PARAM_INT);
+            $stat->bindValue(":tag_id", $tag4_id, PDO::PARAM_INT);
+            $stat->bindValue(":clothes_id", $clohte2_id, PDO::PARAM_INT);
             $stat->execute();
         } catch (PDOException $e) {
             $msg = "ユーザーIDが既に使用されています";
-            throw $e;
         }
     }
 }
